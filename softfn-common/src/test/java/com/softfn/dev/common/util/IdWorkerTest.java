@@ -6,9 +6,9 @@ import com.softfn.dev.common.util.lang.UUIDUtil;
 import java.util.Set;
 
 /**
- * <p/>
+ * <p>
  * IdWorkerTest
- * <p/>
+ * <p>
  *
  * @author softfn
  */
@@ -57,7 +57,7 @@ public class IdWorkerTest {
 //        }
 //        System.out.println(new IdWorker(0).nextId());
 
-        IdWorker idWorker = new IdWorker(1);
+        IdWorker idWorker = new IdWorker(3,2);
 
         System.out.println(idWorker.nextId());
         Thread.sleep(1);

@@ -3,14 +3,14 @@ package com.softfn.dev.common.util.lang;
 import java.util.UUID;
 
 /**
- * <p/>
+ * <p>
  * UUIDUtil UUID生成工具类
- * <p/>
+ * <p>
  *
  * @author softfn
  */
 public class UUIDUtil {
-    private static IdWorker idWorker = new IdWorker(1);
+    private static IdWorker idWorker = new IdWorker(0,0);
 
     /**
      * UUID随机生成
