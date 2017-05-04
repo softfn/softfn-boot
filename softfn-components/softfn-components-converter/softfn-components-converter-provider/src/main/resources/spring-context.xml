@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath:config/*.properties"/>
+
+    <!--导入资源文件-->
+    <import resource="classpath*:spring/*.xml"/>
+
+    <!-- 扫描文件（自动将servicec层注入） -->
+    <context:component-scan base-package="com.softfn.dev.components.converter.service"/>
+
+    <bean id="httpclientConf" class="com.softfn.dev.components.converter.config.HttpclientConf">
+        <property name="connTotal" value="${httpclient.connTotal}"/>
+        <property name="connPerRoute" value="${httpclient.connPerRoute}"/>
+    </bean>
+</beans>

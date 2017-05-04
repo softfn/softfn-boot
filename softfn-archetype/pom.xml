@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>softfn-boot</artifactId>
+        <groupId>com.softfn.dev</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>softfn-archetype</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
+    <url>http://dev/softfn.com/softfn-boot/${project.artifactId}/</url>
+    <organization>
+        <name>Softfn Pivotal Software, Inc.</name>
+        <url>http://www.softfn.com</url>
+    </organization>
+    <modules>
+        <module>softfn-archetype-api</module>
+        <module>softfn-archetype-provider</module>
+        <module>softfn-archetype-consumer</module>
+    </modules>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/softfn/softfn-boot/${project.artifactId}</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>softfn</name>
+            <email>softfn@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

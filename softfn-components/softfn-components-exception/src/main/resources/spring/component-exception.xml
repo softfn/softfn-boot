@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>异常处理</description>
+
+    <!-- 自定义SimpleMappingExceptionResolver覆盖spring的SimpleMappingExceptionResolver -->
+    <bean id="springExceptionResolver"
+          class="com.softfn.dev.components.exception.SpringSimpleMappingExceptionHandler">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="com.alibaba.dubbo.remoting.TimeoutException">errors/timeout</prop>
+                <prop key="com.alibaba.dubbo.remoting.RemotingException">errors/rpc</prop>
+                <prop key="com.alibaba.dubbo.rpc.RpcException">errors/rpc</prop>
+                <prop key="com.softfn.dev.common.exception.BaseException">errors/biz</prop>
+                <prop key="java.lang.RuntimeException">errors/500</prop>
+                <prop key="java.io.IOException">errors/exception</prop>
+                <prop key="java.sql.SQLException">errors/exception</prop>
+                <prop key="java.lang.Exception">errors/exception</prop>
+                <prop key="java.lang.Throwable">errors/exception</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="errors/rpc">400</prop>
+                <prop key="errors/errors/timeout">504</prop>
+                <prop key="errors/biz">503</prop>
+                <prop key="errors/500">500</prop>
+                <prop key="errors/exception">500</prop>
+            </props>
+        </property>
+        <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+        <property name="warnLogCategory" value="WARN"></property>
+        <!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+        <property name="defaultErrorView" value="errors/exception"></property>
+        <!-- 默认HTTP状态码 -->
+        <property name="defaultStatusCode" value="500"></property>
+        <!-- 定义异常处理页面用来获取异常信息的变量名，如果不添加exceptionAttribute属性，则默认为exception -->
+        <property name="exceptionAttribute" value="exception"/>
+    </bean>
+</beans>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <!--多租户数据源配置-->
+    <!--jdbc_url=jdbc:mysql://10.16.25.121:8066/${TENANT_SCHEMA}?useUnicode=true&amp;characterEncoding=utf-8-->
+    <bean id="tenantDataSource" class="com.softfn.dev.components.tenant.TenantDataSource" destroy-method="close"
+          p:driverClassName="${jdbc_driverClassName}"
+          p:url="${jdbc_url}"
+          p:username="${jdbc_username}"
+          p:password="${jdbc_password}"
+          p:initialSize="100"
+          p:maxWait="20000"
+          p:maxIdle="20"
+          p:minIdle="5"
+          p:removeAbandoned="true"
+          p:removeAbandonedTimeout="30"
+          p:testWhileIdle="true"
+          p:testOnBorrow="true"
+          p:testOnReturn="false"
+          p:validationQuery="select 1"
+          p:numTestsPerEvictionRun="20"
+          p:minEvictableIdleTimeMillis="1800000"/>
+
+    <bean id="dynamicTenantDataSource" class="com.softfn.dev.components.tenant.DynamicTenantDataSource">
+        <property name="defaultTenantDataSource" ref="tenantDataSource"/>
+    </bean>
+
+    <!--mybatis文件配置，扫描mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dynamicTenantDataSource"
+          p:configLocation="classpath:config/mybatis-config.xml"
+          p:typeAliasesPackage="com.softfn.dev.market.core.model,com.softfn.dev.market.modules.*.model"
+          p:mapperLocations="classpath:mapper/**/*Mapper.xml"/>
+
+    <!--spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.softfn.dev.market.core.mapper,com.softfn.dev.market.modules.*.mapper"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+
+</beans>

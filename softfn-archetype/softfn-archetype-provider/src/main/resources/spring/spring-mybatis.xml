@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <!--tomcat jdbc pool数据源配置-->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close"
+          p:driverClassName="${jdbc_driverClassName}"
+          p:url="${jdbc_url}"
+          p:username="${jdbc_username}"
+          p:password="${jdbc_password}"
+          p:jmxEnabled="${jdbc_jmx_enabled}"
+          p:validationInterval="${jdbc_validation_interval}"
+          p:testWhileIdle="${jdbc_test_while_idle}"
+          p:testOnReturn="${jdbc_test_on_return}"
+          p:testOnBorrow="${jdbc_test_on_borrow}"
+          p:validationQuery="${jdbc_validation_query}"
+          p:maxActive="${jdbc_max_active}"
+          p:initialSize="${jdbc_initial_size}"
+          p:maxWait="${jdbc_max_wait}"
+          p:timeBetweenEvictionRunsMillis="${jdbc_time_between_eviction_runs_millis}"
+          p:minEvictableIdleTimeMillis="${jdbc_min_evictable_idle_time_millis}"
+          p:numTestsPerEvictionRun="${jdbc_num_tests_per_eviction_run}"
+          p:minIdle="${jdbc_min_idle}"
+          p:maxIdle="${jdbc_max_idle}"
+          p:logAbandoned="${jdbc_log_abandoned}"
+          p:removeAbandoned="${jdbc_remove_abandoned}"
+          p:removeAbandonedTimeout="${jdbc_remove_abandoned_timeout}"/>
+
+    <!--mybatis文件配置，扫描mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:configLocation="classpath:config/mybatis-config.xml"
+          p:typeAliasesPackage="com.softfn.dev.archetype.model"
+          p:mapperLocations="classpath:mapper/*Mapper.xml"/>
+
+    <!--spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.softfn.dev.archetype.mapper"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+
+</beans>

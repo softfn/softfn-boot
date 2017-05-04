@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>多租户支持</description>
+
+    <bean id="tenantAspect" class="com.softfn.dev.components.tenant.MultiTenantAspect"></bean>
+
+    <!-- 如果Proxy-targer-class=false，默认是用jdk动态代理。 -->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <!--切入点 使用了自定义的InjectTenant的注解 -->
+        <aop:pointcut expression="@annotation(com.softfn.dev.common.annotation.InjectTenant)" id="tenantPointcut"/>
+        <!-- 切面： 将哪个对象中的哪个方法，织入到哪个切入点 -->
+        <aop:aspect ref="tenantAspect" order="3">
+            <!--<aop:before method="beforeInvoke" pointcut-ref="tenantPointcut" />-->
+            <!--<aop:after-returning method="afterInvoke" pointcut-ref="tenantPointcut" />-->
+            <aop:around method="injection" pointcut-ref="tenantPointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

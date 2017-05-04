@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ldap="http://www.springframework.org/schema/ldap"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.2.xsd
+      http://www.springframework.org/schema/ldap
+      http://www.springframework.org/schema/ldap/spring-ldap.xsd">
+
+    <description>美的组织员工同步组件</description>
+
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath*:config/ldap.properties"/>
+
+    <!--LDAP配置-->
+    <ldap:context-source id="contextSource" url="${ldap.provider.url}"
+                         username="${ldap.security.userDn}"
+                         password="${ldap.security.password}">
+        <ldap:pooling test-on-borrow="true" test-while-idle="true"/>
+    </ldap:context-source>
+
+    <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <constructor-arg ref="contextSource"/>
+    </bean>
+
+    <!--部门员工LDAP服务-->
+    <bean id="deptEmpLdapService" class="com.softfn.dev.components.data.ldap.impl.DeptEmpLdapServiceImpl">
+        <property name="deptBaseDN" value="${ldap.basedn.org}"/>
+        <property name="empBaseDN" value="${ldap.basedn.emp}"/>
+    </bean>
+
+    <!--调度作业服务-->
+    <bean id="scheduleJobService" class="com.softfn.dev.components.data.ldap.impl.ScheduleJobServiceImpl"/>
+
+</beans>

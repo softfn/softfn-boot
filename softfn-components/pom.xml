@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.softfn.dev</groupId>
+        <artifactId>softfn-boot</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>softfn-components</artifactId>
+    <packaging>pom</packaging>
+    <name>Softfn Components</name>
+    <description>Softfn Components</description>
+    <url>http://dev/softfn.com/softfn-boot/${project.artifactId}/</url>
+    <organization>
+        <name>Softfn Pivotal Software, Inc.</name>
+        <url>http://www.softfn.com</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>softfn</name>
+            <email>softfn@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>softfn-components-api</module>
+        <module>softfn-components-cache</module>
+        <module>softfn-components-converter</module>
+        <module>softfn-components-log</module>
+        <module>softfn-components-exception</module>
+        <module>softfn-components-mq</module>
+        <module>softfn-components-media</module>
+        <module>softfn-components-sms</module>
+        <module>softfn-components-scheduler</module>
+        <module>softfn-components-tenant</module>
+        <module>softfn-components-token</module>
+        <module>softfn-components-data</module>
+    </modules>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

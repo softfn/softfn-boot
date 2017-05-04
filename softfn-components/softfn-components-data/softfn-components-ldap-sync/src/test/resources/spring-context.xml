@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	  http://www.springframework.org/schema/aop
+	  http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath*:config/*.properties"/>
+
+    <!--aop 注解风格支持   proxy-targer-class默认false,用jdk动态代理,true是cglib .expose-proxy当前代理是否为可暴露状态,值是"ture",则为可访问。 -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+
+    <!--aop xml风格支持  -->
+    <aop:config expose-proxy="true" proxy-target-class="true"/>
+
+    <!--导入资源文件-->
+    <import resource="classpath*:spring/*.xml"/>
+
+    <!-- 扫描文件 test -->
+    <context:component-scan base-package="com.softfn.dev.components.data.ldap"/>
+
+</beans>

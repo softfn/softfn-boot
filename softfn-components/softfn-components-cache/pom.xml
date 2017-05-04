@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.softfn.dev</groupId>
+        <artifactId>softfn-components</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>softfn-components-cache</artifactId>
+    <packaging>pom</packaging>
+    <name>Softfn Components Cache</name>
+    <description>Softfn Components Cache</description>
+    <url>http://dev/softfn.com/softfn-boot/softfn-components/${project.artifactId}/</url>
+    <organization>
+        <name>Softfn Pivotal Software, Inc.</name>
+        <url>http://www.softfn.com</url>
+    </organization>
+    <modules>
+        <module>softfn-components-cache-provider</module>
+        <module>softfn-components-cache-adapt</module>
+    </modules>
+    <developers>
+        <developer>
+            <name>softfn</name>
+            <email>softfn@hotmail.com</email>
+        </developer>
+    </developers>
+</project>
